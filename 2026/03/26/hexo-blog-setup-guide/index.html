@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Hexo 博客搭建指南欢迎来到 Hexo 的世界！Hexo 是一个快速、简洁且强大的 Node.js 博客框架。它能让你轻松创建、管理和部署你的博客。如果你是一名开发者，或者想要一个高度可定制的博客系统，Hexo 是一个绝佳的选择。 本指南将带你一步步搭建一个属于自己的 Hexo 博客，即使你是新手也能轻松上手。 准备工作在开始之前，请确保你的电脑上安装了以下软件：  Node.js® 和 npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客搭建指南">
+<meta property="og:url" content="http://example.com/2026/03/26/hexo-blog-setup-guide/index.html">
+<meta property="og:site_name" content="十月的博客">
+<meta property="og:description" content="Hexo 博客搭建指南欢迎来到 Hexo 的世界！Hexo 是一个快速、简洁且强大的 Node.js 博客框架。它能让你轻松创建、管理和部署你的博客。如果你是一名开发者，或者想要一个高度可定制的博客系统，Hexo 是一个绝佳的选择。 本指南将带你一步步搭建一个属于自己的 Hexo 博客，即使你是新手也能轻松上手。 准备工作在开始之前，请确保你的电脑上安装了以下软件：  Node.js® 和 npm">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-26T02:44:00.000Z">
+<meta property="article:modified_time" content="2026-03-26T02:44:55.368Z">
+<meta property="article:author" content="Fester Zheng">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="入门">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Hexo 博客搭建指南</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/03/25/hello-world/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/26/hexo-blog-setup-guide/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&text=Hexo 博客搭建指南"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&is_video=false&description=Hexo 博客搭建指南"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo 博客搭建指南&body=Check out this article: http://example.com/2026/03/26/hexo-blog-setup-guide/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&name=Hexo 博客搭建指南&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/26/hexo-blog-setup-guide/&t=Hexo 博客搭建指南"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">Hexo 博客搭建指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0-Hexo-%E7%9A%84%E4%B8%96%E7%95%8C%EF%BC%81"><span class="toc-number">1.1.</span> <span class="toc-text">欢迎来到 Hexo 的世界！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">1.3.</span> <span class="toc-text">安装 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Hexo-%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.4.</span> <span class="toc-text">创建你的第一个 Hexo 博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-number">1.5.</span> <span class="toc-text">Hexo 目录结构概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%A0%E7%9A%84%E7%AB%99%E7%82%B9"><span class="toc-number">1.6.</span> <span class="toc-text">配置你的站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE-Cactus-%E4%B8%BB%E9%A2%98"><span class="toc-number">1.7.</span> <span class="toc-text">主题配置 (Cactus 主题)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-number">1.8.</span> <span class="toc-text">编写你的第一篇文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%96%87%E7%AB%A0"><span class="toc-number">1.9.</span> <span class="toc-text">生成文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%A7%88%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.10.</span> <span class="toc-text">预览你的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.11.</span> <span class="toc-text">部署你的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.12.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Hexo 博客搭建指南
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Fester Zheng</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-26T02:44:00.000Z" class="dt-published" itemprop="datePublished">2026-03-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Hexo/" rel="tag">Hexo</a>, <a class="p-category" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Hexo-博客搭建指南"><a href="#Hexo-博客搭建指南" class="headerlink" title="Hexo 博客搭建指南"></a>Hexo 博客搭建指南</h1><h2 id="欢迎来到-Hexo-的世界！"><a href="#欢迎来到-Hexo-的世界！" class="headerlink" title="欢迎来到 Hexo 的世界！"></a>欢迎来到 Hexo 的世界！</h2><p>Hexo 是一个快速、简洁且强大的 Node.js 博客框架。它能让你轻松创建、管理和部署你的博客。如果你是一名开发者，或者想要一个高度可定制的博客系统，Hexo 是一个绝佳的选择。</p>
+<p>本指南将带你一步步搭建一个属于自己的 Hexo 博客，即使你是新手也能轻松上手。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在开始之前，请确保你的电脑上安装了以下软件：</p>
+<ol>
+<li><strong>Node.js® 和 npm</strong>：Hexo 是基于 Node.js 的，你可以在 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js 官网</a> 下载并安装 LTS 版本。npm (Node Package Manager) 会随 Node.js 一同安装。</li>
+<li><strong>Git</strong>：用于版本控制和部署到 GitHub Pages 等平台。</li>
+</ol>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>首先，我们需要全局安装 Hexo 命令行工具。打开你的终端（命令行界面）并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，你可以通过运行 <code>hexo version</code> 来检查 Hexo 的版本。根据你的信息，你的 Hexo CLI 版本是 <code>4.3.2</code>。</p>
+<h2 id="创建你的第一个-Hexo-博客"><a href="#创建你的第一个-Hexo-博客" class="headerlink" title="创建你的第一个 Hexo 博客"></a>创建你的第一个 Hexo 博客</h2><ol>
+<li><p><strong>选择一个目录</strong>：<br>在你想要存放博客文件的地方创建一个新文件夹。例如，根据你的路径，我们在 <code>/Users/fester/Documents/Hexo/</code> 下创建 <code>my-hexo-blog</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Documents/Hexo/</span><br><span class="line"><span class="built_in">mkdir</span> my-hexo-blog</span><br><span class="line"><span class="built_in">cd</span> my-hexo-blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>初始化 Hexo</strong>：<br>在你的项目文件夹中，运行以下命令来初始化 Hexo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>这会下载 Hexo 的基本文件结构。</p>
+</li>
+<li><p><strong>安装依赖</strong>：<br>初始化完成后，安装项目所需的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Hexo-目录结构概览"><a href="#Hexo-目录结构概览" class="headerlink" title="Hexo 目录结构概览"></a>Hexo 目录结构概览</h2><p>初始化后的 Hexo 项目会包含以下主要目录和文件：</p>
+<ul>
+<li><code>_config.yml</code>：站点的主配置文件，全局设置（如站点标题、作者、语言、主题等）。</li>
+<li><code>package.json</code>：项目依赖和脚本配置。</li>
+<li><code>source/</code>：存放博客内容的地方。<ul>
+<li><code>_posts/</code>：你的 Markdown 博客文章会放在这里。</li>
+<li><code>_drafts/</code>：草稿文章。</li>
+</ul>
+</li>
+<li><code>themes/</code>：存放你安装的主题。</li>
+<li><code>package.json</code>：定义了项目依赖和脚本。</li>
+<li><code> scaffolds/</code>：文件模板，用于生成文章、页面等。</li>
+</ul>
+<h2 id="配置你的站点"><a href="#配置你的站点" class="headerlink" title="配置你的站点"></a>配置你的站点</h2><p>站点的主要配置文件是根目录下的 <code>_config.yml</code>。打开它，你会看到很多配置项。对于初学者，至少需要关注以下几项：</p>
+<ul>
+<li><strong><code>title</code></strong>：你的博客名称。</li>
+<li><strong><code>subtitle</code></strong>：你的博客副标题。</li>
+<li><strong><code>description</code></strong>：博客的描述，通常用于 SEO。</li>
+<li><strong><code>keywords</code></strong>：博客的关键词。</li>
+<li><strong><code>language</code></strong>：博客的语言，例如 <code>en</code> 或 <code>zh-CN</code>。</li>
+<li><strong><code>theme</code></strong>：当前使用的主题名称。</li>
+</ul>
+<h2 id="主题配置-Cactus-主题"><a href="#主题配置-Cactus-主题" class="headerlink" title="主题配置 (Cactus 主题)"></a>主题配置 (Cactus 主题)</h2><p>你提到了正在使用 <code>cactus</code> 主题。<code>cactus</code> 是一个简洁、美观的主题，非常适合内容展示。</p>
+<p>通常，主题的配置会在主题本身的 <code>_config.yml</code> 文件中进行。在你的 Hexo 项目根目录下，找到 <code>themes/cactus/</code> 文件夹，里面应该有一个 <code>_config.yml</code> 文件。</p>
+<p>你可以在这个主题的配置文件中调整：</p>
+<ul>
+<li><strong>导航菜单</strong>：设置页面的链接，如 “关于”、”分类” 等。</li>
+<li><strong>社交链接</strong>：添加你的社交媒体链接。</li>
+<li><strong>侧边栏小部件</strong>：配置作者信息、标签云等。</li>
+<li><strong>其他主题特定设置</strong>：例如 <code>cactus</code> 主题可能支持代码高亮风格、评论系统集成等。</li>
+</ul>
+<p><strong>注意</strong>：如果你对主题的 <code>_config.yml</code> 进行修改，并且该主题是你通过 <code>npm install</code> 安装的，那么在主题更新时，你的修改可能会丢失。推荐的做法是：</p>
+<ol>
+<li><strong>克隆主题库</strong>：将 <code>themes/cactus/</code> 目录下的文件复制到你项目根目录下的 <code>themes/</code> 文件夹中，并手动修改 <code>_config.yml</code> 中的 <code>theme</code> 设置为你的新主题文件夹名（如果复制到新文件夹）。</li>
+<li><strong>使用 <code>hexo-theme-cactus</code> 插件（如果存在）</strong>：有些主题可能提供npm包，可以直接安装并配置。</li>
+</ol>
+<p><strong>对于初学者，建议先使用主题自带的默认配置，熟悉后再进行调整。</strong></p>
+<h2 id="编写你的第一篇文章"><a href="#编写你的第一篇文章" class="headerlink" title="编写你的第一篇文章"></a>编写你的第一篇文章</h2><p>文章通常使用 Markdown 格式编写，并放置在 <code>source/_posts/</code> 目录下。</p>
+<p>每篇文章都必须有一个 YAML front-matter（抬头信息），它位于文件开头，由三个连字符 (<code>---</code>) 包裹。Essential front-matter 字段包括：</p>
+<ul>
+<li><code>title</code>：文章标题。</li>
+<li><code>date</code>：文章发布日期。</li>
+<li><code>layout</code>：文章的布局模板（通常是 <code>post</code>）。</li>
+<li><code>categories</code>：文章分类。</li>
+<li><code>tags</code>：文章标签。</li>
+</ul>
+<p><strong>示例：<code>source/_posts/my-first-post.md</code></strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 我的第一篇文章</span><br><span class="line">date: 2026-03-26 10:22:00</span><br><span class="line">layout: post</span><br><span class="line">categories:</span><br><span class="line"><span class="bullet">  -</span> 教程</span><br><span class="line">tags:</span><br><span class="line"><span class="bullet">  -</span> Hexo</span><br><span class="line"><span class="section">  - 入门</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line">这是我的第一篇 Hexo 文章！使用 Markdown 语法。</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成文章"><a href="#生成文章" class="headerlink" title="生成文章"></a>生成文章</h2><p>要生成一篇新文章，你可以使用 Hexo 的 <code>new</code> 命令。例如，要创建一篇名为 “my-new-post” 的文章：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">&quot;my-new-post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这将在 <code>source/_posts/</code> 目录下创建一个名为 <code>my-new-post.md</code> 的文件，并填充好基本的 front-matter。</p>
+<h2 id="预览你的博客"><a href="#预览你的博客" class="headerlink" title="预览你的博客"></a>预览你的博客</h2><p>在部署之前，你可以使用 Hexo 的本地服务器来预览你的博客。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>或者简写为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>运行此命令后，你可以在浏览器中访问 <code>http://localhost:4000</code> 来查看你的博客。</p>
+<h2 id="部署你的博客"><a href="#部署你的博客" class="headerlink" title="部署你的博客"></a>部署你的博客</h2><p>Hexo 支持多种部署方式，最常见的是部署到 GitHub Pages。</p>
+<ol>
+<li><p><strong>安装部署插件</strong>：<br>你需要安装相应的部署适配器，例如 <code>hexo-deployer-git</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置发布设置</strong>：<br>修改你项目根目录下的 <code>_config.yml</code> 文件，添加或修改 <code>deploy</code> 部分：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&lt;你的</span> <span class="string">GitHub</span> <span class="string">仓库</span> <span class="string">URL&gt;</span> <span class="comment"># 例如：https://github.com/yourusername/yourusername.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 或者 main，取决于你的仓库分支设置</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>生成静态文件</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>或者简写为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>发布博客</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>或者简写为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 会自动生成静态文件并将其推送到你配置的仓库。</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>恭喜你！你已经成功搭建并配置了一个 Hexo 博客。</p>
+<ul>
+<li><strong>核心命令</strong>：<ul>
+<li><code>hexo new &lt;layout&gt; &lt;title&gt;</code>：创建新文章&#x2F;页面。</li>
+<li><code>hexo generate</code> 或 <code>hexo g</code>：生成静态文件。</li>
+<li><code>hexo server</code> 或 <code>hexo s</code>：本地预览。</li>
+<li><code>hexo deploy</code> 或 <code>hexo d</code>：部署博客。</li>
+</ul>
+</li>
+<li><strong>配置文件</strong>：<code>_config.yml</code>（站点）和 <code>themes/&lt;theme_name&gt;/_config.yml</code>（主题）。</li>
+</ul>
+<p>现在，你可以开始尽情创作你的博客内容了！</p>
+<p>请审阅这份草稿。如果你有什么需要修改的地方，或者想补充其他内容（比如关于某个 Hexo 插件的配置、如何集成评论系统、SEO 优化技巧等），请告诉我。</p>
+<p>你提到“先不发布”，我将暂不执行发布操作。等你确认内容无误后，可以指示我进行发布。”}</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">Hexo 博客搭建指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0-Hexo-%E7%9A%84%E4%B8%96%E7%95%8C%EF%BC%81"><span class="toc-number">1.1.</span> <span class="toc-text">欢迎来到 Hexo 的世界！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">1.3.</span> <span class="toc-text">安装 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Hexo-%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.4.</span> <span class="toc-text">创建你的第一个 Hexo 博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E6%A6%82%E8%A7%88"><span class="toc-number">1.5.</span> <span class="toc-text">Hexo 目录结构概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%A0%E7%9A%84%E7%AB%99%E7%82%B9"><span class="toc-number">1.6.</span> <span class="toc-text">配置你的站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE-Cactus-%E4%B8%BB%E9%A2%98"><span class="toc-number">1.7.</span> <span class="toc-text">主题配置 (Cactus 主题)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-number">1.8.</span> <span class="toc-text">编写你的第一篇文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%96%87%E7%AB%A0"><span class="toc-number">1.9.</span> <span class="toc-text">生成文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E8%A7%88%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.10.</span> <span class="toc-text">预览你的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.11.</span> <span class="toc-text">部署你的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.12.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/26/hexo-blog-setup-guide/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&text=Hexo 博客搭建指南"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&is_video=false&description=Hexo 博客搭建指南"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo 博客搭建指南&body=Check out this article: http://example.com/2026/03/26/hexo-blog-setup-guide/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&title=Hexo 博客搭建指南"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/26/hexo-blog-setup-guide/&name=Hexo 博客搭建指南&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/26/hexo-blog-setup-guide/&t=Hexo 博客搭建指南"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Fester Zheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
