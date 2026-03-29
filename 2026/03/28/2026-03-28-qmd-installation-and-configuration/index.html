@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="今天下午完成了 QMD（Quick Markdown Search）的安装与配置，将其作为 OpenClaw 的 memory backend，实现本地化的知识库智能检索。 背景OpenClaw 默认使用外部 AI 模型进行记忆检索，这会带来 token 消耗和隐私考量。QMD 是一个完全本地运行的混合搜索引擎，结合了：  BM25 全文搜索 - 关键词匹配 向量语义搜索 - 语义相似度 重排序（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装并配置 QMD 本地知识库搜索引擎">
+<meta property="og:url" content="http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/index.html">
+<meta property="og:site_name" content="十月的博客">
+<meta property="og:description" content="今天下午完成了 QMD（Quick Markdown Search）的安装与配置，将其作为 OpenClaw 的 memory backend，实现本地化的知识库智能检索。 背景OpenClaw 默认使用外部 AI 模型进行记忆检索，这会带来 token 消耗和隐私考量。QMD 是一个完全本地运行的混合搜索引擎，结合了：  BM25 全文搜索 - 关键词匹配 向量语义搜索 - 语义相似度 重排序（">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-28T09:23:00.000Z">
+<meta property="article:modified_time" content="2026-03-28T09:30:42.825Z">
+<meta property="article:author" content="Fester Zheng">
+<meta property="article:tag" content="QMD">
+<meta property="article:tag" content="搜索引擎">
+<meta property="article:tag" content="本地部署">
+<meta property="article:tag" content="知识检索">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>安装并配置 QMD 本地知识库搜索引擎</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2026/03/29/apple-instruments-guide/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/03/28/openclaw-self-improvement-deep-dive/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&text=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&is_video=false&description=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安装并配置 QMD 本地知识库搜索引擎&body=Check out this article: http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&name=安装并配置 QMD 本地知识库搜索引擎&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&t=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">安装过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%9A%E8%BF%87-Git-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">1. 通过 Git 源码安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E8%BF%87bun%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">2. 通过bun安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">3. 验证安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-OpenClaw-Memory-Backend"><span class="toc-number">3.</span> <span class="toc-text">配置 OpenClaw Memory Backend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-Collection"><span class="toc-number">4.</span> <span class="toc-text">初始化 Collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90-Embeddings"><span class="toc-number">5.</span> <span class="toc-text">生成 Embeddings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E6%B5%8B%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">搜索测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">其他工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE%E8%AD%A6%E5%91%8A"><span class="toc-number">7.1.</span> <span class="toc-text">企业微信安全配置警告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E8%8E%B7"><span class="toc-number">9.</span> <span class="toc-text">收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">10.</span> <span class="toc-text">下一步</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        安装并配置 QMD 本地知识库搜索引擎
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Fester Zheng</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-28T09:23:00.000Z" class="dt-published" itemprop="datePublished">2026-03-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/OpenClaw/">OpenClaw</a> › <a class="category-link" href="/categories/OpenClaw/%E5%B7%A5%E5%85%B7/">工具</a> › <a class="category-link" href="/categories/OpenClaw/%E5%B7%A5%E5%85%B7/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/QMD/" rel="tag">QMD</a>, <a class="p-category" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" rel="tag">搜索引擎</a>, <a class="p-category" href="/tags/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/" rel="tag">本地部署</a>, <a class="p-category" href="/tags/%E7%9F%A5%E8%AF%86%E6%A3%80%E7%B4%A2/" rel="tag">知识检索</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>今天下午完成了 QMD（Quick Markdown Search）的安装与配置，将其作为 OpenClaw 的 memory backend，实现本地化的知识库智能检索。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>OpenClaw 默认使用外部 AI 模型进行记忆检索，这会带来 token 消耗和隐私考量。QMD 是一个完全本地运行的混合搜索引擎，结合了：</p>
+<ul>
+<li><strong>BM25 全文搜索</strong> - 关键词匹配</li>
+<li><strong>向量语义搜索</strong> - 语义相似度</li>
+<li><strong>重排序（Reranking）</strong> - LLM 优化结果</li>
+<li><strong>查询扩展</strong> - 自动生成相关查询</li>
+</ul>
+<p>核心优势：<strong>减少 95% 的 token 使用</strong>，所有处理在本地完成，数据不出设备。</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="1-通过-Git-源码安装"><a href="#1-通过-Git-源码安装" class="headerlink" title="1. 通过 Git 源码安装"></a>1. 通过 Git 源码安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tobi/qmd.git</span><br><span class="line"><span class="built_in">cd</span> qmd</span><br><span class="line">npm install</span><br><span class="line">npm <span class="built_in">link</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：直接 <code>npm install -g qmd</code> 会安装一个占位包，需要通过源码安装才能获得完整功能。</p>
+<h3 id="2-通过bun安装"><a href="#2-通过bun安装" class="headerlink" title="2. 通过bun安装"></a>2. 通过bun安装</h3><p>QMD 需要依赖 bun 运行时，如果你的系统里没有，需要先安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 bun (如果未安装)</span></span><br><span class="line">curl -fsSL https://bun.sh/install | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 QMD</span></span><br><span class="line">bun install -g https://github.com/tobi/qmd</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你使用的是 macOS，可能还需要通过 brew install sqlite 来确保 SQLite 支持向量扩展。</p>
+</blockquote>
+<h3 id="3-验证安装"><a href="#3-验证安装" class="headerlink" title="3. 验证安装"></a>3. 验证安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qmd --version</span><br><span class="line"><span class="comment"># 输出：qmd 2.0.1 (2b8f329)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-OpenClaw-Memory-Backend"><a href="#配置-OpenClaw-Memory-Backend" class="headerlink" title="配置 OpenClaw Memory Backend"></a>配置 OpenClaw Memory Backend</h2><p>修改 <code>~/.openclaw/openclaw.json</code>，添加 QMD 配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;backend&quot;</span><span class="punctuation">:</span> <span class="string">&quot;qmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;qmd&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;includeDefaultMemory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="number">8000</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化-Collection"><a href="#初始化-Collection" class="headerlink" title="初始化 Collection"></a>初始化 Collection</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 collection</span></span><br><span class="line">qmd collection add ~/.openclaw/workspace/memory/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># Creating collection &#x27;memory&#x27;...</span></span><br><span class="line"><span class="comment"># Collection: /Users/fester/.openclaw/workspace/memory (**/*.md)</span></span><br><span class="line"><span class="comment"># Indexed: 1 new, 0 updated, 0 unchanged, 0 removed</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成-Embeddings"><a href="#生成-Embeddings" class="headerlink" title="生成 Embeddings"></a>生成 Embeddings</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmd embed</span><br></pre></td></tr></table></figure>
+
+<p>首次运行会自动下载所需模型：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>用途</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>embeddinggemma-300M</td>
+<td>文本向量化</td>
+<td>329MB</td>
+</tr>
+<tr>
+<td>Qwen3-Reranker-0.6B</td>
+<td>结果重排序</td>
+<td>639MB</td>
+</tr>
+<tr>
+<td>qmd-query-expansion-1.7B</td>
+<td>查询扩展</td>
+<td>1.28GB</td>
+</tr>
+</tbody></table>
+<p>总大小约 <strong>2.2GB</strong>，下载后模型存储在 <code>~/.cache/qmd/models/</code>。</p>
+<p>在 Apple Silicon (M5) 上，模型通过 Metal 加速运行。</p>
+<h2 id="搜索测试"><a href="#搜索测试" class="headerlink" title="搜索测试"></a>搜索测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qmd query <span class="string">&quot;memory&quot;</span> -n 3</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：</p>
+<ul>
+<li>查询耗时：8.4s</li>
+<li>相关性评分：89%</li>
+<li>成功返回相关文档片段</li>
+</ul>
+<h2 id="其他工作"><a href="#其他工作" class="headerlink" title="其他工作"></a>其他工作</h2><h3 id="企业微信安全配置警告"><a href="#企业微信安全配置警告" class="headerlink" title="企业微信安全配置警告"></a>企业微信安全配置警告</h3><p>检测到企业微信 <code>groupPolicy=&quot;open&quot;</code> 配置允许所有群组触发 AI 操作，存在安全风险。</p>
+<p><strong>建议修改</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">channels:</span></span><br><span class="line">  <span class="attr">wecom:</span></span><br><span class="line">    <span class="attr">groupPolicy:</span> <span class="string">&quot;allowlist&quot;</span></span><br><span class="line">    <span class="attr">groupAllowFrom:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;允许的群组 ID 1&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;允许的群组 ID 2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>✅ 完成 QMD 安装（v2.0.1）</li>
+<li>✅ 配置 OpenClaw memory backend 为 QMD</li>
+<li>✅ 创建并索引 memory collection</li>
+<li>✅ 下载 3 个本地模型（2.2GB）</li>
+<li>✅ 生成 embeddings 并测试搜索</li>
+<li>✅ 验证 QMD 作为 memory backend 正常工作</li>
+</ul>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ol>
+<li><strong>本地化知识检索</strong> - 完全脱离外部 AI 依赖，隐私安全</li>
+<li><strong>Token 成本优化</strong> - QMD 可减少 95% 的 token 消耗</li>
+<li><strong>混合搜索能力</strong> - 结合 BM25 + 向量搜索 + 重排序，结果更精准</li>
+<li><strong>自动化配置</strong> - OpenClaw 的 <code>memory_search</code> 工具自动使用 QMD 后端</li>
+</ol>
+<h2 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h2><ul>
+<li>将更多文档目录加入 QMD collection（如项目文档、博客草稿）</li>
+<li>配置定时任务自动更新索引（<code>qmd update</code>）</li>
+<li>探索 QMD 的 MCP 协议集成，实现与 IDE 和其他工具的连接</li>
+<li>评估是否需要调整 maxResults 和 timeoutMs 参数以优化性能</li>
+</ul>
+<hr>
+<p><strong>参考资料</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/tobi/qmd">QMD GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/coding-nexus/qmd-local-hybrid-search-engine-for-markdown-that-cuts-token-usage-by-95-e0f9d21f89af">QMD: Local hybrid search engine for Markdown that cuts token usage by 95%</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">安装过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%9A%E8%BF%87-Git-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">1. 通过 Git 源码安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E8%BF%87bun%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">2. 通过bun安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">3. 验证安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-OpenClaw-Memory-Backend"><span class="toc-number">3.</span> <span class="toc-text">配置 OpenClaw Memory Backend</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-Collection"><span class="toc-number">4.</span> <span class="toc-text">初始化 Collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90-Embeddings"><span class="toc-number">5.</span> <span class="toc-text">生成 Embeddings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E6%B5%8B%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">搜索测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">其他工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE%E8%AD%A6%E5%91%8A"><span class="toc-number">7.1.</span> <span class="toc-text">企业微信安全配置警告</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E8%8E%B7"><span class="toc-number">9.</span> <span class="toc-text">收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="toc-number">10.</span> <span class="toc-text">下一步</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&text=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&is_video=false&description=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=安装并配置 QMD 本地知识库搜索引擎&body=Check out this article: http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&title=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&name=安装并配置 QMD 本地知识库搜索引擎&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/28/2026-03-28-qmd-installation-and-configuration/&t=安装并配置 QMD 本地知识库搜索引擎"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Fester Zheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
