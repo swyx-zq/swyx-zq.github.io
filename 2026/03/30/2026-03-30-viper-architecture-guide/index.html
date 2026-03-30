@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="在iOS开发中，选择合适的架构模式对于项目的可维护性和可扩展性至关重要。本文将深入介绍VIPER架构的设计理念、组成要素，以及在实际项目中的应用实践。 什么是VIPER架构VIPER是一种基于**单一职责原则（SRP）**的iOS应用架构模式，它将应用划分为五个独立的组件，每个组件都有明确的职责边界。VIPER名称来源于其五个核心组件：  View（视图）：负责显示UI元素和接收用户输入 Inte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VIPER架构详解及实践">
+<meta property="og:url" content="http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/index.html">
+<meta property="og:site_name" content="十月的博客">
+<meta property="og:description" content="在iOS开发中，选择合适的架构模式对于项目的可维护性和可扩展性至关重要。本文将深入介绍VIPER架构的设计理念、组成要素，以及在实际项目中的应用实践。 什么是VIPER架构VIPER是一种基于**单一职责原则（SRP）**的iOS应用架构模式，它将应用划分为五个独立的组件，每个组件都有明确的职责边界。VIPER名称来源于其五个核心组件：  View（视图）：负责显示UI元素和接收用户输入 Inte">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-30T14:46:00.000Z">
+<meta property="article:modified_time" content="2026-03-30T14:51:48.745Z">
+<meta property="article:author" content="Fester Zheng">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="VIPER">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="架构设计">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>VIPER架构详解及实践</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/03/29/apple-instruments-guide/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&text=VIPER架构详解及实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&is_video=false&description=VIPER架构详解及实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=VIPER架构详解及实践&body=Check out this article: http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&name=VIPER架构详解及实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&t=VIPER架构详解及实践"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFVIPER%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">什么是VIPER架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E5%90%84%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">VIPER各组件详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-View%EF%BC%88%E8%A7%86%E5%9B%BE%E5%B1%82%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">1. View（视图层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Interactor%EF%BC%88%E4%BA%A4%E4%BA%92%E5%99%A8%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2. Interactor（交互器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Presenter%EF%BC%88%E5%B1%95%E7%A4%BA%E5%99%A8%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">3. Presenter（展示器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Entity%EF%BC%88%E5%AE%9E%E4%BD%93%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">4. Entity（实体）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Router%EF%BC%88%E8%B7%AF%E7%94%B1%E5%99%A8%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">5. Router（路由器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">3.</span> <span class="toc-text">VIPER的数据流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">VIPER的优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E5%BB%BA%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8VIPER"><span class="toc-number">5.1.</span> <span class="toc-text">1. 何时使用VIPER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%90%E6%AD%A5%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5"><span class="toc-number">5.2.</span> <span class="toc-text">2. 逐步迁移策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">5.3.</span> <span class="toc-text">3. 使用依赖注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E5%8D%8F%E8%AE%AE%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.4.</span> <span class="toc-text">4. 使用协议定义接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.</span> <span class="toc-text">与其他架构对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        VIPER架构详解及实践
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Fester Zheng</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-30T14:46:00.000Z" class="dt-published" itemprop="datePublished">2026-03-30</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/iOS%E5%BC%80%E5%8F%91/">iOS开发</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Swift/" rel="tag">Swift</a>, <a class="p-category" href="/tags/VIPER/" rel="tag">VIPER</a>, <a class="p-category" href="/tags/iOS/" rel="tag">iOS</a>, <a class="p-category" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag">架构设计</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>在iOS开发中，选择合适的架构模式对于项目的可维护性和可扩展性至关重要。本文将深入介绍VIPER架构的设计理念、组成要素，以及在实际项目中的应用实践。</p>
+<h2 id="什么是VIPER架构"><a href="#什么是VIPER架构" class="headerlink" title="什么是VIPER架构"></a>什么是VIPER架构</h2><p>VIPER是一种基于**单一职责原则（SRP）**的iOS应用架构模式，它将应用划分为五个独立的组件，每个组件都有明确的职责边界。VIPER名称来源于其五个核心组件：</p>
+<ul>
+<li><strong>View（视图）</strong>：负责显示UI元素和接收用户输入</li>
+<li><strong>Interactor（交互器）</strong>：负责业务逻辑和数据处理</li>
+<li><strong>Presenter（展示器）</strong>：作为中介，协调View和Interactor之间的交互</li>
+<li><strong>Entity（实体）</strong>：代表应用的数据模型</li>
+<li><strong>Router（路由器）</strong>：负责导航和模块间的跳转</li>
+</ul>
+<h2 id="VIPER各组件详解"><a href="#VIPER各组件详解" class="headerlink" title="VIPER各组件详解"></a>VIPER各组件详解</h2><h3 id="1-View（视图层）"><a href="#1-View（视图层）" class="headerlink" title="1. View（视图层）"></a>1. View（视图层）</h3><p>View层负责UI的展示和用户交互，它只包含展示逻辑，不包含任何业务逻辑。View通过Delegate或闭包将用户操作传递给Presenter。</p>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>显示数据和状态</li>
+<li>接收用户交互事件</li>
+<li>将事件传递给Presenter</li>
+<li>根据Presenter的指示更新UI</li>
+</ul>
+<p><strong>不应包含</strong>：</p>
+<ul>
+<li>业务逻辑</li>
+<li>网络请求</li>
+<li>数据持久化</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">UserListViewProtocol</span>: <span class="title class_ inherited__">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">showUsers</span>(<span class="keyword">_</span> <span class="params">users</span>: [<span class="type">User</span>])</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">showError</span>(<span class="keyword">_</span> <span class="params">message</span>: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">showLoading</span>()</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">hideLoading</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserListView</span>: <span class="title class_ inherited__">UIViewController</span>, <span class="title class_ inherited__">UserListViewProtocol</span> &#123;</span><br><span class="line">    <span class="comment">// UI implementation</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Interactor（交互器）"><a href="#2-Interactor（交互器）" class="headerlink" title="2. Interactor（交互器）"></a>2. Interactor（交互器）</h3><p>Interactor是VIPER架构的核心，负责所有业务逻辑处理。它从Presenter接收请求，执行相应的业务逻辑，然后通过Callback或Delegate将结果返回给Presenter。</p>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>执行业务逻辑</li>
+<li>处理数据转换</li>
+<li>调用网络请求</li>
+<li>访问本地数据存储</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">UserListInteractorProtocol</span>: <span class="title class_ inherited__">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">fetchUsers</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserListInteractor</span>: <span class="title class_ inherited__">UserListInteractorProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> presenter: <span class="type">UserListPresenterProtocol</span>?</span><br><span class="line">    <span class="keyword">let</span> apiService: <span class="type">APIServiceProtocol</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">fetchUsers</span>() &#123;</span><br><span class="line">        apiService.getUsers &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] result <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> result &#123;</span><br><span class="line">            <span class="keyword">case</span> .success(<span class="keyword">let</span> users):</span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.presenter<span class="operator">?</span>.didFetchUsers(users)</span><br><span class="line">            <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.presenter<span class="operator">?</span>.didFailToFetchUsers(error)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Presenter（展示器）"><a href="#3-Presenter（展示器）" class="headerlink" title="3. Presenter（展示器）"></a>3. Presenter（展示器）</h3><p>Presenter是VIPER架构中的”大脑”，负责协调View和Interactor之间的交互。它接收来自View的用户输入，调用Interactor执行业务逻辑，然后将结果格式化后传递给View展示。</p>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>处理View的事件</li>
+<li>调用Interactor执行业务逻辑</li>
+<li>格式化数据供View展示</li>
+<li>管理View的状态</li>
+</ul>
+<p><strong>不应包含</strong>：</p>
+<ul>
+<li>UI逻辑</li>
+<li>业务逻辑</li>
+<li>数据模型</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">UserListPresenterProtocol</span>: <span class="title class_ inherited__">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>()</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">didSelectUser</span>(<span class="keyword">_</span> <span class="params">user</span>: <span class="type">User</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserListPresenter</span>: <span class="title class_ inherited__">UserListPresenterProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> view: <span class="type">UserListViewProtocol</span>?</span><br><span class="line">    <span class="keyword">var</span> interactor: <span class="type">UserListInteractorProtocol</span>?</span><br><span class="line">    <span class="keyword">var</span> router: <span class="type">UserListRouterProtocol</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        view<span class="operator">?</span>.showLoading()</span><br><span class="line">        interactor<span class="operator">?</span>.fetchUsers()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">didSelectUser</span>(<span class="keyword">_</span> <span class="params">user</span>: <span class="type">User</span>) &#123;</span><br><span class="line">        router<span class="operator">?</span>.navigateToUserDetail(user)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">didFetchUsers</span>(<span class="keyword">_</span> <span class="params">users</span>: [<span class="type">User</span>]) &#123;</span><br><span class="line">        view<span class="operator">?</span>.hideLoading()</span><br><span class="line">        view<span class="operator">?</span>.showUsers(users)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Entity（实体）"><a href="#4-Entity（实体）" class="headerlink" title="4. Entity（实体）"></a>4. Entity（实体）</h3><p>Entity是应用的基本数据模型，与VIPER的其他层无关。它可以是简单的数据结构，也可以是复杂的业务对象。</p>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>定义数据模型</li>
+<li>封装业务规则</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> email: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> avatarURL: <span class="type">URL</span>?</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Router（路由器）"><a href="#5-Router（路由器）" class="headerlink" title="5. Router（路由器）"></a>5. Router（路由器）</h3><p>Router负责处理应用内的导航和模块间的跳转。它知道如何创建其他模块并启动相应的流程。</p>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>管理视图控制器的导航</li>
+<li>创建和组装其他模块</li>
+<li>处理模块间的跳转</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">UserListRouterProtocol</span>: <span class="title class_ inherited__">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">navigateToUserDetail</span>(<span class="keyword">_</span> <span class="params">user</span>: <span class="type">User</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserListRouter</span>: <span class="title class_ inherited__">UserListRouterProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> viewController: <span class="type">UIViewController</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">navigateToUserDetail</span>(<span class="keyword">_</span> <span class="params">user</span>: <span class="type">User</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> userDetailViewController <span class="operator">=</span> <span class="type">UserDetailAssembly</span>().assemble(with: user)</span><br><span class="line">        viewController<span class="operator">?</span>.navigationController<span class="operator">?</span>.pushViewController(userDetailViewController, animated: <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="VIPER的数据流"><a href="#VIPER的数据流" class="headerlink" title="VIPER的数据流"></a>VIPER的数据流</h2><p>VIPER架构中的数据流向遵循严格的单向流动原则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户操作 → View → Presenter → Interactor → Presenter → View → 用户</span><br><span class="line">              ↓                                              ↑</span><br><span class="line">           Router ←———————————— 导航 ←—————————————— Presenter</span><br></pre></td></tr></table></figure>
+
+<p>这种清晰的层次结构使得代码易于理解和维护。</p>
+<h2 id="VIPER的优缺点"><a href="#VIPER的优缺点" class="headerlink" title="VIPER的优缺点"></a>VIPER的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li><strong>高度解耦</strong>：各组件职责明确，依赖关系清晰</li>
+<li><strong>易于测试</strong>：每个组件都可以独立进行单元测试</li>
+<li><strong>可维护性强</strong>：修改某个模块不会影响其他模块</li>
+<li><strong>团队协作友好</strong>：不同开发者可以独立开发不同的模块</li>
+<li><strong>代码复用性高</strong>：Interactor可以在不同的View中复用</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li><strong>代码量增加</strong>：相比MVC，需要创建更多的文件和类</li>
+<li><strong>学习曲线陡峭</strong>：新手需要时间理解各组件的职责</li>
+<li><strong>过度设计的风险</strong>：对于简单的应用可能过于复杂</li>
+<li><strong>模板代码多</strong>：需要编写大量的接口和实现代码</li>
+</ol>
+<h2 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h2><h3 id="1-何时使用VIPER"><a href="#1-何时使用VIPER" class="headerlink" title="1. 何时使用VIPER"></a>1. 何时使用VIPER</h3><p>VIPER适合以下场景：</p>
+<ul>
+<li>大型、复杂的应用</li>
+<li>需要长期维护的项目</li>
+<li>团队协作开发的项目</li>
+<li>对代码质量和可测试性要求高的项目</li>
+</ul>
+<p>对于简单的Demo或小型应用，可以考虑使用更轻量的架构模式。</p>
+<h3 id="2-逐步迁移策略"><a href="#2-逐步迁移策略" class="headerlink" title="2. 逐步迁移策略"></a>2. 逐步迁移策略</h3><p>如果要在现有项目中引入VIPER，建议采用逐步迁移的策略：</p>
+<ol>
+<li>新功能使用VIPER开发</li>
+<li>逐步重构现有模块</li>
+<li>保持MVC和VIPER并存，避免大规模重写</li>
+</ol>
+<h3 id="3-使用依赖注入"><a href="#3-使用依赖注入" class="headerlink" title="3. 使用依赖注入"></a>3. 使用依赖注入</h3><p>使用依赖注入框架（如Swinject、Typhoon）可以帮助管理VIPER各组件之间的依赖关系，提高代码的可测试性。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserListAssembly</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">assemble</span>() -&gt; <span class="type">UIViewController</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> view <span class="operator">=</span> <span class="type">UserListView</span>()</span><br><span class="line">        <span class="keyword">let</span> interactor <span class="operator">=</span> <span class="type">UserListInteractor</span>(apiService: <span class="type">APIService</span>())</span><br><span class="line">        <span class="keyword">let</span> presenter <span class="operator">=</span> <span class="type">UserListPresenter</span>()</span><br><span class="line">        <span class="keyword">let</span> router <span class="operator">=</span> <span class="type">UserListRouter</span>()</span><br><span class="line">        </span><br><span class="line">        view.presenter <span class="operator">=</span> presenter</span><br><span class="line">        presenter.view <span class="operator">=</span> view</span><br><span class="line">        presenter.interactor <span class="operator">=</span> inter<span class="keyword">actor</span></span><br><span class="line">        <span class="title class_">presenter</span>.router <span class="operator">=</span> router</span><br><span class="line">        interactor.presenter <span class="operator">=</span> presenter</span><br><span class="line">        router.viewController <span class="operator">=</span> view</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-使用协议定义接口"><a href="#4-使用协议定义接口" class="headerlink" title="4. 使用协议定义接口"></a>4. 使用协议定义接口</h3><p>使用Protocol定义各组件之间的接口，可以进一步解耦组件之间的依赖关系，提高代码的灵活性和可测试性。</p>
+<h2 id="与其他架构对比"><a href="#与其他架构对比" class="headerlink" title="与其他架构对比"></a>与其他架构对比</h2><table>
+<thead>
+<tr>
+<th>架构</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MVC</strong></td>
+<td>简单、官方推荐</td>
+<td>View和Controller耦合严重</td>
+<td>小型项目、简单功能</td>
+</tr>
+<tr>
+<td><strong>MVP</strong></td>
+<td>解耦View和业务逻辑</td>
+<td>Presenter容易变成”God Object”</td>
+<td>中型项目、需要单元测试</td>
+</tr>
+<tr>
+<td><strong>MVVM</strong></td>
+<td>双向绑定、声明式UI</td>
+<td>ViewModel可能变得复杂</td>
+<td>需要频繁UI更新的应用</td>
+</tr>
+<tr>
+<td><strong>VIPER</strong></td>
+<td>高度解耦、职责明确</td>
+<td>代码量大、学习曲线陡峭</td>
+<td>大型项目、团队协作</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>VIPER架构通过严格的职责分离，为iOS应用提供了一种清晰、可维护的架构方案。虽然它的学习曲线较陡峭，代码量也相对较多，但对于大型项目和团队协作开发来说，VIPER带来的可维护性和可测试性收益是显著的。</p>
+<p>在选择架构时，应该根据项目的实际需求、团队规模和复杂度来决定。对于小型项目，可以考虑使用更轻量的架构模式；对于大型、复杂的项目，VIPER是一个值得考虑的选择。</p>
+<p>记住：架构是工具，不是目的。选择最适合你项目的架构，而不是盲目追求”最佳实践”。</p>
+<hr>
+<p><strong>参考资源</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://clean-swift.com/viper-architecture/">VIPER Architecture by Clean Swift</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.objc.io/issues/13-architecture/">Objc.io: iOS Architecture Patterns</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Clean-Swift/CleanSwift">GitHub: CleanSwift</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFVIPER%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">什么是VIPER架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E5%90%84%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">VIPER各组件详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-View%EF%BC%88%E8%A7%86%E5%9B%BE%E5%B1%82%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">1. View（视图层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Interactor%EF%BC%88%E4%BA%A4%E4%BA%92%E5%99%A8%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2. Interactor（交互器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Presenter%EF%BC%88%E5%B1%95%E7%A4%BA%E5%99%A8%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">3. Presenter（展示器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Entity%EF%BC%88%E5%AE%9E%E4%BD%93%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">4. Entity（实体）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Router%EF%BC%88%E8%B7%AF%E7%94%B1%E5%99%A8%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">5. Router（路由器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">3.</span> <span class="toc-text">VIPER的数据流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">VIPER的优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E5%BB%BA%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">实践建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8VIPER"><span class="toc-number">5.1.</span> <span class="toc-text">1. 何时使用VIPER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%90%E6%AD%A5%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5"><span class="toc-number">5.2.</span> <span class="toc-text">2. 逐步迁移策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">5.3.</span> <span class="toc-text">3. 使用依赖注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E5%8D%8F%E8%AE%AE%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.4.</span> <span class="toc-text">4. 使用协议定义接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.</span> <span class="toc-text">与其他架构对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&text=VIPER架构详解及实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&is_video=false&description=VIPER架构详解及实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=VIPER架构详解及实践&body=Check out this article: http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&title=VIPER架构详解及实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&name=VIPER架构详解及实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/30/2026-03-30-viper-architecture-guide/&t=VIPER架构详解及实践"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Fester Zheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
