@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="从 0 到 1：开发你的第一个 OpenClaw Agent 技能 当 AI Agent 遇上模块化技能，你的专属智能助手就能拥有无限可能。  在 AI 技术快速发展的今天，我们不再满足于通用的 AI 对话，而是希望拥有能够解决特定问题的智能助手。OpenClaw 的 Agent 技能系统，正是为了实现这一目标而设计的。 本文将通过实战案例，带你从零开始开发一个完整的 Agent 技能，让你快速掌">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 0 到 1：开发你的第一个 OpenClaw Agent 技能">
+<meta property="og:url" content="http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/index.html">
+<meta property="og:site_name" content="十月的博客">
+<meta property="og:description" content="从 0 到 1：开发你的第一个 OpenClaw Agent 技能 当 AI Agent 遇上模块化技能，你的专属智能助手就能拥有无限可能。  在 AI 技术快速发展的今天，我们不再满足于通用的 AI 对话，而是希望拥有能够解决特定问题的智能助手。OpenClaw 的 Agent 技能系统，正是为了实现这一目标而设计的。 本文将通过实战案例，带你从零开始开发一个完整的 Agent 技能，让你快速掌">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-31T15:25:14.000Z">
+<meta property="article:modified_time" content="2026-03-31T15:28:27.887Z">
+<meta property="article:author" content="Fester Zheng">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="技能开发">
+<meta property="article:tag" content="教程">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>从 0 到 1：开发你的第一个 OpenClaw Agent 技能</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/03/30/2026-03-30-viper-architecture-guide/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&text=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&is_video=false&description=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从 0 到 1：开发你的第一个 OpenClaw Agent 技能&body=Check out this article: http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&name=从 0 到 1：开发你的第一个 OpenClaw Agent 技能&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&t=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">从 0 到 1：开发你的第一个 OpenClaw Agent 技能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-Agent-%E6%8A%80%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text">1. 什么是 Agent 技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="toc-number">1.2.1.</span> <span class="toc-text">技能的核心价值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8A%80%E8%83%BD%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">2. 技能结构解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SKILL-md%EF%BC%88%E6%A0%B8%E5%BF%83%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">SKILL.md（核心文件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scripts-%EF%BC%88%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">scripts&#x2F;（执行脚本）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#references-%EF%BC%88%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">references&#x2F;（参考文档）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assets-%EF%BC%88%E8%BE%93%E5%87%BA%E8%B5%84%E6%BA%90%EF%BC%89"><span class="toc-number">1.3.4.</span> <span class="toc-text">assets&#x2F;（输出资源）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%EF%BC%9AHexo-%E5%86%99%E4%BD%9C%E6%8F%90%E9%86%92%E6%8A%80%E8%83%BD"><span class="toc-number">1.4.</span> <span class="toc-text">3. 实战案例：Hexo 写作提醒技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">3.1 需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%8A%80%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.2.</span> <span class="toc-text">3.2 技能设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-SKILL-md-%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">3.2.1 SKILL.md 设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">3.2.2 脚本开发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">3.2.3 参考资源</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.3 开发流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.5.</span> <span class="toc-text">4. 开发技巧与最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">1.5.1.</span> <span class="toc-text">4.1 设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AE%80%E6%B4%81%E6%80%A7%E4%BC%98%E5%85%88"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">1. 简洁性优先</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">2. 渐进式披露</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">3. 错误处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.</span> <span class="toc-text">4.2 代码规范</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">脚本规范</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">文档规范</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%B5%8B%E8%AF%95%E7%AD%96%E7%95%A5"><span class="toc-number">1.5.3.</span> <span class="toc-text">4.3 测试策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">集成测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-number">1.6.</span> <span class="toc-text">5. 总结与展望</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%85%B3%E9%94%AE%E6%94%B6%E8%8E%B7"><span class="toc-number">1.6.1.</span> <span class="toc-text">5.1 关键收获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-number">1.6.2.</span> <span class="toc-text">5.2 未来展望</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%BC%80%E5%A7%8B%E4%BD%A0%E7%9A%84%E6%8A%80%E8%83%BD%E4%B9%8B%E6%97%85"><span class="toc-number">1.6.3.</span> <span class="toc-text">5.3 开始你的技能之旅</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        从 0 到 1：开发你的第一个 OpenClaw Agent 技能
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Fester Zheng</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-31T15:25:14.000Z" class="dt-published" itemprop="datePublished">2026-03-31</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Agent/" rel="tag">Agent</a>, <a class="p-category" href="/tags/OpenClaw/" rel="tag">OpenClaw</a>, <a class="p-category" href="/tags/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91/" rel="tag">技能开发</a>, <a class="p-category" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="从-0-到-1：开发你的第一个-OpenClaw-Agent-技能"><a href="#从-0-到-1：开发你的第一个-OpenClaw-Agent-技能" class="headerlink" title="从 0 到 1：开发你的第一个 OpenClaw Agent 技能"></a>从 0 到 1：开发你的第一个 OpenClaw Agent 技能</h1><blockquote>
+<p>当 AI Agent 遇上模块化技能，你的专属智能助手就能拥有无限可能。</p>
+</blockquote>
+<p>在 AI 技术快速发展的今天，我们不再满足于通用的 AI 对话，而是希望拥有能够解决特定问题的智能助手。OpenClaw 的 Agent 技能系统，正是为了实现这一目标而设计的。</p>
+<p>本文将通过实战案例，带你从零开始开发一个完整的 Agent 技能，让你快速掌握技能开发的核心理念和实践技巧。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>你是否曾经想过：</p>
+<ul>
+<li>如何让 AI 拥有专业领域的知识？</li>
+<li>如何让 AI 自动执行复杂的工作流？</li>
+<li>如何将你的经验和知识封装成可复用的模块？</li>
+</ul>
+<p>Agent 技能正是解决这些问题的答案。它就像是为 AI 装上的”专业插件”，让原本通用的智能助手变成特定领域的专家。</p>
+<hr>
+<h2 id="1-什么是-Agent-技能"><a href="#1-什么是-Agent-技能" class="headerlink" title="1. 什么是 Agent 技能"></a>1. 什么是 Agent 技能</h2><p>Agent 技能是 OpenClaw 系统中的<strong>模块化能力包</strong>，它通过提供：</p>
+<ul>
+<li><strong>专业工作流</strong>：特定领域的多步骤处理流程</li>
+<li><strong>工具集成</strong>：与特定工具、API 或文件格式的深度集成</li>
+<li><strong>领域知识</strong>：行业特定的背景知识和最佳实践</li>
+<li><strong>可复用资源</strong>：脚本、模板、配置等标准化资源</li>
+</ul>
+<p>让 AI Agent 在特定场景下表现出超越通用模型的专业能力。</p>
+<h3 id="技能的核心价值"><a href="#技能的核心价值" class="headerlink" title="技能的核心价值"></a>技能的核心价值</h3><ol>
+<li><strong>专业化</strong>：将通用 AI 转化为专业领域助手</li>
+<li><strong>可复用</strong>：一次开发，多次使用，持续优化</li>
+<li><strong>可扩展</strong>：技能可以组合，形成更复杂的能力</li>
+<li><strong>可维护</strong>：模块化设计，便于更新和维护</li>
+</ol>
+<hr>
+<h2 id="2-技能结构解析"><a href="#2-技能结构解析" class="headerlink" title="2. 技能结构解析"></a>2. 技能结构解析</h2><p>一个完整的 Agent 技能通常包含以下结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">skill-name/</span><br><span class="line">├── SKILL.md                  # 技能说明（必需）</span><br><span class="line">├── scripts/                  # 可执行脚本</span><br><span class="line">├── references/               # 参考文档</span><br><span class="line">└── assets/                   # 模板资源</span><br></pre></td></tr></table></figure>
+
+<h3 id="SKILL-md（核心文件）"><a href="#SKILL-md（核心文件）" class="headerlink" title="SKILL.md（核心文件）"></a>SKILL.md（核心文件）</h3><p>技能的灵魂所在，包含：</p>
+<ul>
+<li><strong>Front Matter</strong>：<code>name</code> 和 <code>description</code>（技能的”身份证”）</li>
+<li><strong>使用说明</strong>：技能的功能介绍和使用场景</li>
+<li><strong>工作流程</strong>：具体的操作步骤和最佳实践</li>
+<li><strong>参考资源</strong>：指向其他资源的链接</li>
+</ul>
+<h3 id="scripts-（执行脚本）"><a href="#scripts-（执行脚本）" class="headerlink" title="scripts&#x2F;（执行脚本）"></a>scripts&#x2F;（执行脚本）</h3><p>当需要<strong>确定性执行</strong>或<strong>重复操作</strong>时使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scripts/create_post.sh    <span class="comment"># 创建文章脚本</span></span><br><span class="line">scripts/deploy.sh         <span class="comment"># 部署脚本</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="references-（参考文档）"><a href="#references-（参考文档）" class="headerlink" title="references&#x2F;（参考文档）"></a>references&#x2F;（参考文档）</h3><p>当需要<strong>详细背景知识</strong>或<strong>配置信息</strong>时使用：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">references/topics.md      # 写作主题参考</span><br><span class="line">references/api<span class="emphasis">_docs.md    # API 文档</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="assets-（输出资源）"><a href="#assets-（输出资源）" class="headerlink" title="assets&#x2F;（输出资源）"></a>assets&#x2F;（输出资源）</h3><p>当需要生成<strong>最终输出文件</strong>时使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assets/template.js        <span class="comment"># 代码模板</span></span><br><span class="line">assets/config.json        <span class="comment"># 配置文件</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-实战案例：Hexo-写作提醒技能"><a href="#3-实战案例：Hexo-写作提醒技能" class="headerlink" title="3. 实战案例：Hexo 写作提醒技能"></a>3. 实战案例：Hexo 写作提醒技能</h2><p>让我们通过刚刚开发的 Hexo 写作提醒技能，来理解技能开发的完整流程。</p>
+<h3 id="3-1-需求分析"><a href="#3-1-需求分析" class="headerlink" title="3.1 需求分析"></a>3.1 需求分析</h3><p><strong>目标</strong>：建立每日技术文章写作习惯，提供便捷的写作和发布工具。</p>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li>📅 每日自动提醒写作</li>
+<li>📝 快速新建 Hexo 文章</li>
+<li>🚀 一键部署到 GitHub Pages</li>
+</ul>
+<h3 id="3-2-技能设计"><a href="#3-2-技能设计" class="headerlink" title="3.2 技能设计"></a>3.2 技能设计</h3><h4 id="3-2-1-SKILL-md-设计"><a href="#3-2-1-SKILL-md-设计" class="headerlink" title="3.2.1 SKILL.md 设计"></a>3.2.1 SKILL.md 设计</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">hexo-daily-post-reminder</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">Hexo</span> <span class="string">每日技术文章写作提醒与发布技能。提供每日写作提醒、主题建议、新建文章、部署到</span> <span class="string">GitHub</span> <span class="string">Pages</span> <span class="string">的完整工作流。</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>关键点</strong>：</p>
+<ul>
+<li><code>name</code>：简洁的技能名称</li>
+<li><code>description</code>：详细描述功能和使用场景，这是技能的”触发条件”</li>
+</ul>
+<h4 id="3-2-2-脚本开发"><a href="#3-2-2-脚本开发" class="headerlink" title="3.2.2 脚本开发"></a>3.2.2 脚本开发</h4><p><strong>新建文章脚本</strong> (<code>scripts/create_post.sh</code>)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">HEXO_DIR=<span class="string">&quot;/Users/fester/Documents/Hexo/十月的博客&quot;</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$HEXO_DIR</span>&quot;</span> || <span class="built_in">exit</span> 1</span><br><span class="line">hexo new post <span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>部署脚本</strong> (<code>scripts/deploy.sh</code>)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;/Users/fester/Documents/Hexo/十月的博客&quot;</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-3-参考资源"><a href="#3-2-3-参考资源" class="headerlink" title="3.2.3 参考资源"></a>3.2.3 参考资源</h4><p><strong>主题库</strong> (<code>references/topics.md</code>)：包含 100+ 写作主题建议，按技术领域分类。</p>
+<h3 id="3-3-开发流程"><a href="#3-3-开发流程" class="headerlink" title="3.3 开发流程"></a>3.3 开发流程</h3><ol>
+<li><strong>需求分析</strong> → 明确技能目标和功能</li>
+<li><strong>结构设计</strong> → 规划文件组织结构</li>
+<li><strong>脚本开发</strong> → 实现核心功能</li>
+<li><strong>文档编写</strong> → 编写使用说明</li>
+<li><strong>测试验证</strong> → 确保功能正常</li>
+<li><strong>部署发布</strong> → 打包为 .skill 文件</li>
+</ol>
+<hr>
+<h2 id="4-开发技巧与最佳实践"><a href="#4-开发技巧与最佳实践" class="headerlink" title="4. 开发技巧与最佳实践"></a>4. 开发技巧与最佳实践</h2><h3 id="4-1-设计原则"><a href="#4-1-设计原则" class="headerlink" title="4.1 设计原则"></a>4.1 设计原则</h3><h4 id="1-简洁性优先"><a href="#1-简洁性优先" class="headerlink" title="1. 简洁性优先"></a>1. <strong>简洁性优先</strong></h4><ul>
+<li>只包含必要信息</li>
+<li>避免过度设计</li>
+<li>保持代码简洁</li>
+</ul>
+<h4 id="2-渐进式披露"><a href="#2-渐进式披露" class="headerlink" title="2. 渐进式披露"></a>2. <strong>渐进式披露</strong></h4><ul>
+<li>基本功能在前，高级功能在后</li>
+<li>按需加载资源，避免上下文过载</li>
+</ul>
+<h4 id="3-错误处理"><a href="#3-错误处理" class="headerlink" title="3. 错误处理"></a>3. <strong>错误处理</strong></h4><ul>
+<li>提供清晰的错误提示</li>
+<li>包含恢复建议</li>
+<li>记录失败原因</li>
+</ul>
+<h3 id="4-2-代码规范"><a href="#4-2-代码规范" class="headerlink" title="4.2 代码规范"></a>4.2 代码规范</h3><h4 id="脚本规范"><a href="#脚本规范" class="headerlink" title="脚本规范"></a>脚本规范</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -euo pipefail  <span class="comment"># 严格错误处理</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入验证</span></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$1</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;错误：请提供参数&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="文档规范"><a href="#文档规范" class="headerlink" title="文档规范"></a>文档规范</h4><ul>
+<li>使用 Markdown 格式</li>
+<li>包含使用示例</li>
+<li>说明参数和返回值</li>
+</ul>
+<h3 id="4-3-测试策略"><a href="#4-3-测试策略" class="headerlink" title="4.3 测试策略"></a>4.3 测试策略</h3><h4 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试脚本功能</span></span><br><span class="line">./scripts/create_post.sh <span class="string">&quot;测试文章&quot;</span></span><br><span class="line"><span class="built_in">ls</span> -la <span class="string">&quot;/Users/fester/Documents/Hexo/十月的博客/source/_posts/&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试完整工作流</span></span><br><span class="line">./scripts/create_post.sh <span class="string">&quot;测试文章&quot;</span></span><br><span class="line">./scripts/deploy.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-总结与展望"><a href="#5-总结与展望" class="headerlink" title="5. 总结与展望"></a>5. 总结与展望</h2><h3 id="5-1-关键收获"><a href="#5-1-关键收获" class="headerlink" title="5.1 关键收获"></a>5.1 关键收获</h3><p>通过本次实战，我们掌握了：</p>
+<ol>
+<li><strong>技能架构设计</strong>：理解了 Agent 技能的组成结构</li>
+<li><strong>开发流程</strong>：从需求到发布的完整流程</li>
+<li><strong>最佳实践</strong>：代码规范和测试策略</li>
+<li><strong>实战经验</strong>：真实项目中的经验和教训</li>
+</ol>
+<h3 id="5-2-未来展望"><a href="#5-2-未来展望" class="headerlink" title="5.2 未来展望"></a>5.2 未来展望</h3><p>Agent 技能系统还有很大的发展空间：</p>
+<ul>
+<li><strong>技能市场</strong>：技能的分享和交易平台</li>
+<li><strong>技能组合</strong>：多个技能的协同工作</li>
+<li><strong>智能升级</strong>：AI 辅助技能优化和生成</li>
+<li><strong>跨平台支持</strong>：支持更多开发环境和部署方式</li>
+</ul>
+<h3 id="5-3-开始你的技能之旅"><a href="#5-3-开始你的技能之旅" class="headerlink" title="5.3 开始你的技能之旅"></a>5.3 开始你的技能之旅</h3><p>现在，你已经具备了开发 Agent 技能的基础能力。建议：</p>
+<ol>
+<li><strong>从小开始</strong>：先开发简单的技能，逐步增加复杂度</li>
+<li><strong>关注用户体验</strong>：确保技能易用、可靠</li>
+<li><strong>持续优化</strong>：根据实际使用反馈不断改进</li>
+<li><strong>分享贡献</strong>：将你的技能分享给社区</li>
+</ol>
+<p>记住：<strong>技能开发是一个持续学习和改进的过程</strong>。每一次开发都是一次成长，每一次使用都是一次验证。</p>
+<hr>
+<p><strong>下一步</strong>：尝试开发一个你自己的技能，或者基于本文的 Hexo 写作提醒技能进行扩展。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">从 0 到 1：开发你的第一个 OpenClaw Agent 技能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-Agent-%E6%8A%80%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text">1. 什么是 Agent 技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="toc-number">1.2.1.</span> <span class="toc-text">技能的核心价值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8A%80%E8%83%BD%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">2. 技能结构解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SKILL-md%EF%BC%88%E6%A0%B8%E5%BF%83%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">SKILL.md（核心文件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scripts-%EF%BC%88%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">scripts&#x2F;（执行脚本）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#references-%EF%BC%88%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">references&#x2F;（参考文档）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assets-%EF%BC%88%E8%BE%93%E5%87%BA%E8%B5%84%E6%BA%90%EF%BC%89"><span class="toc-number">1.3.4.</span> <span class="toc-text">assets&#x2F;（输出资源）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%EF%BC%9AHexo-%E5%86%99%E4%BD%9C%E6%8F%90%E9%86%92%E6%8A%80%E8%83%BD"><span class="toc-number">1.4.</span> <span class="toc-text">3. 实战案例：Hexo 写作提醒技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">3.1 需求分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%8A%80%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.2.</span> <span class="toc-text">3.2 技能设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-SKILL-md-%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">3.2.1 SKILL.md 设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">3.2.2 脚本开发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">3.2.3 参考资源</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.3 开发流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.5.</span> <span class="toc-text">4. 开发技巧与最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">1.5.1.</span> <span class="toc-text">4.1 设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AE%80%E6%B4%81%E6%80%A7%E4%BC%98%E5%85%88"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">1. 简洁性优先</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">2. 渐进式披露</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">3. 错误处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.</span> <span class="toc-text">4.2 代码规范</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">脚本规范</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E8%A7%84%E8%8C%83"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">文档规范</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%B5%8B%E8%AF%95%E7%AD%96%E7%95%A5"><span class="toc-number">1.5.3.</span> <span class="toc-text">4.3 测试策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">集成测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-number">1.6.</span> <span class="toc-text">5. 总结与展望</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%85%B3%E9%94%AE%E6%94%B6%E8%8E%B7"><span class="toc-number">1.6.1.</span> <span class="toc-text">5.1 关键收获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-number">1.6.2.</span> <span class="toc-text">5.2 未来展望</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%BC%80%E5%A7%8B%E4%BD%A0%E7%9A%84%E6%8A%80%E8%83%BD%E4%B9%8B%E6%97%85"><span class="toc-number">1.6.3.</span> <span class="toc-text">5.3 开始你的技能之旅</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&text=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&is_video=false&description=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从 0 到 1：开发你的第一个 OpenClaw Agent 技能&body=Check out this article: http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&title=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&name=从 0 到 1：开发你的第一个 OpenClaw Agent 技能&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/03/31/%E4%BB%8E-0-%E5%88%B0-1%EF%BC%9A%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-OpenClaw-Agent-%E6%8A%80%E8%83%BD/&t=从 0 到 1：开发你的第一个 OpenClaw Agent 技能"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Fester Zheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
