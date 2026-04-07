@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一、核心框架：从零到发布的完整流程1.1 创意分析与目标设定（10分钟） 需求矩阵：明确主题、受众、核心信息、情感基调 竞品扫描：使用即梦的AI分析工具提取热门关键词 输出物：创意简报（1页PPT格式）  1.2 脚本生成（15分钟） 输入：创意简报 + 3-5个核心关键词 AI生成：使用即梦脚本AI（建议模型：Llama 4 Maverick） 人工优化：加入钩子、节奏控制、台词打磨 输出物：精">
+<meta property="og:type" content="article">
+<meta property="og:title" content="即梦AI短视频创作全流程">
+<meta property="og:url" content="http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/index.html">
+<meta property="og:site_name" content="十月的博客">
+<meta property="og:description" content="一、核心框架：从零到发布的完整流程1.1 创意分析与目标设定（10分钟） 需求矩阵：明确主题、受众、核心信息、情感基调 竞品扫描：使用即梦的AI分析工具提取热门关键词 输出物：创意简报（1页PPT格式）  1.2 脚本生成（15分钟） 输入：创意简报 + 3-5个核心关键词 AI生成：使用即梦脚本AI（建议模型：Llama 4 Maverick） 人工优化：加入钩子、节奏控制、台词打磨 输出物：精">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-07T07:31:03.922Z">
+<meta property="article:author" content="Fester Zheng">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="创作流程">
+<meta property="article:tag" content="即梦">
+<meta property="article:tag" content="短视频">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>即梦AI短视频创作全流程</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/04/02/cursor-ai-coding-assistant-detailed-guide-2026/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&text=即梦AI短视频创作全流程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&is_video=false&description=即梦AI短视频创作全流程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=即梦AI短视频创作全流程&body=Check out this article: http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&name=即梦AI短视频创作全流程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&t=即梦AI短视频创作全流程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E6%A1%86%E6%9E%B6%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%8F%91%E5%B8%83%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">一、核心框架：从零到发布的完整流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%88%9B%E6%84%8F%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%AE%E6%A0%87%E8%AE%BE%E5%AE%9A%EF%BC%8810%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 创意分析与目标设定（10分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%84%9A%E6%9C%AC%E7%94%9F%E6%88%90%EF%BC%8815%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 脚本生成（15分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%EF%BC%8830%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 内容生成（30分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%BC%96%E8%BE%91%E4%B8%8E%E4%BC%98%E5%8C%96%EF%BC%8820%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 编辑与优化（20分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E6%A0%A1%E9%AA%8C%E4%B8%8E%E5%8F%91%E5%B8%83%EF%BC%885%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 校验与发布（5分钟）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E6%88%98%E6%A8%A1%E6%9D%BF%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">二、实战模板库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF1%EF%BC%9A%E5%88%9B%E6%84%8F%E7%AE%80%E6%8A%A5%E6%A8%A1%E6%9D%BF%EF%BC%88Markdown%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">模板1：创意简报模板（Markdown）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF2%EF%BC%9A%E8%84%9A%E6%9C%AC%E6%97%B6%E9%97%B4%E8%BD%B4%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.2.</span> <span class="toc-text">模板2：脚本时间轴模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF3%EF%BC%9A%E8%B4%A8%E9%87%8F%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="toc-number">2.3.</span> <span class="toc-text">模板3：质量检查清单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.</span> <span class="toc-text">三、个人使用技巧与建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87%E6%8A%80%E5%B7%A7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 效率提升技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 模型选择建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 成本控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%EF%BC%9A30%E7%A7%92AI%E7%A7%91%E6%99%AE%E8%A7%86%E9%A2%91%E5%88%B6%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">四、实战案例：30秒AI科普视频制作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-number">5.</span> <span class="toc-text">五、总结与展望</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        即梦AI短视频创作全流程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Fester Zheng</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-06T16:00:00.000Z" class="dt-published" itemprop="datePublished">2026-04-07</time>
+        
+        (Updated: <time datetime="2026-04-07T07:31:03.922Z" class="dt-updated" itemprop="dateModified">2026-04-07</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%B7%A5%E5%85%B7/">技术工具</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/AI/" rel="tag">AI</a>, <a class="p-category" href="/tags/%E5%88%9B%E4%BD%9C%E6%B5%81%E7%A8%8B/" rel="tag">创作流程</a>, <a class="p-category" href="/tags/%E5%8D%B3%E6%A2%A6/" rel="tag">即梦</a>, <a class="p-category" href="/tags/%E7%9F%AD%E8%A7%86%E9%A2%91/" rel="tag">短视频</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="一、核心框架：从零到发布的完整流程"><a href="#一、核心框架：从零到发布的完整流程" class="headerlink" title="一、核心框架：从零到发布的完整流程"></a>一、核心框架：从零到发布的完整流程</h2><h3 id="1-1-创意分析与目标设定（10分钟）"><a href="#1-1-创意分析与目标设定（10分钟）" class="headerlink" title="1.1 创意分析与目标设定（10分钟）"></a>1.1 创意分析与目标设定（10分钟）</h3><ul>
+<li><strong>需求矩阵</strong>：明确主题、受众、核心信息、情感基调</li>
+<li><strong>竞品扫描</strong>：使用即梦的AI分析工具提取热门关键词</li>
+<li><strong>输出物</strong>：创意简报（1页PPT格式）</li>
+</ul>
+<h3 id="1-2-脚本生成（15分钟）"><a href="#1-2-脚本生成（15分钟）" class="headerlink" title="1.2 脚本生成（15分钟）"></a>1.2 脚本生成（15分钟）</h3><ul>
+<li><strong>输入</strong>：创意简报 + 3-5个核心关键词</li>
+<li><strong>AI生成</strong>：使用即梦脚本AI（建议模型：Llama 4 Maverick）</li>
+<li><strong>人工优化</strong>：加入钩子、节奏控制、台词打磨</li>
+<li><strong>输出物</strong>：精炼脚本（含时间轴标注）</li>
+</ul>
+<h3 id="1-3-内容生成（30分钟）"><a href="#1-3-内容生成（30分钟）" class="headerlink" title="1.3 内容生成（30分钟）"></a>1.3 内容生成（30分钟）</h3><ul>
+<li><strong>素材库选择</strong>：从即梦素材市场选取背景&#x2F;角色</li>
+<li><strong>AI生成</strong>：<ul>
+<li>视频画面（文本→视频）</li>
+<li>AI合成角色（可自定义风格）</li>
+<li>语音合成（推荐音色：科技女声&#x2F;温暖男声）</li>
+</ul>
+</li>
+<li><strong>多模态合成</strong>：自动字幕、背景音乐匹配</li>
+<li><strong>输出物</strong>：粗剪版本（1-2分钟）</li>
+</ul>
+<h3 id="1-4-编辑与优化（20分钟）"><a href="#1-4-编辑与优化（20分钟）" class="headerlink" title="1.4 编辑与优化（20分钟）"></a>1.4 编辑与优化（20分钟）</h3><ul>
+<li><strong>自动剪辑</strong>：AI识别并删除冗余片段</li>
+<li><strong>排版设计</strong>：字体动画、图文叠加、转场效果</li>
+<li><strong>质量检测</strong>：画质&#x2F;声音&#x2F;节奏问题AI诊断</li>
+<li><strong>输出物</strong>：精修版本（符合平台规范）</li>
+</ul>
+<h3 id="1-5-校验与发布（5分钟）"><a href="#1-5-校验与发布（5分钟）" class="headerlink" title="1.5 校验与发布（5分钟）"></a>1.5 校验与发布（5分钟）</h3><ul>
+<li><strong>A&#x2F;B测试</strong>：封面图&#x2F;标签&#x2F;标题组合测试</li>
+<li><strong>格式导出</strong>：自动生成9:16竖屏、1:1、16:9多版本</li>
+<li><strong>一键发布</strong>：对接抖音&#x2F;视频号&#x2F;B站等平台</li>
+</ul>
+<hr>
+<h2 id="二、实战模板库"><a href="#二、实战模板库" class="headerlink" title="二、实战模板库"></a>二、实战模板库</h2><h3 id="模板1：创意简报模板（Markdown）"><a href="#模板1：创意简报模板（Markdown）" class="headerlink" title="模板1：创意简报模板（Markdown）"></a>模板1：创意简报模板（Markdown）</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 创意简报</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**主题**</span>：[如：AI语音识别技术]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**受众**</span>：[如：科技爱好者 18-35岁]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**时长**</span>：[如：30秒]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**情感基调**</span>：[如：科技感 + 趣味]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**核心钩子**</span>:[如：&quot;AI能识别你的方言吗？&quot;]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**CTA**</span>:[如：关注获取更多AI实验]</span><br></pre></td></tr></table></figure>
+
+<h3 id="模板2：脚本时间轴模板"><a href="#模板2：脚本时间轴模板" class="headerlink" title="模板2：脚本时间轴模板"></a>模板2：脚本时间轴模板</h3><table>
+<thead>
+<tr>
+<th>时间码</th>
+<th>画面描述</th>
+<th>台词&#x2F;字幕</th>
+<th>音效&#x2F;音乐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3s</td>
+<td>[画面]</td>
+<td>[钩子台词]</td>
+<td>[音效]</td>
+</tr>
+<tr>
+<td>3-15s</td>
+<td>[演示]</td>
+<td>[解释]</td>
+<td>[背景音乐]</td>
+</tr>
+<tr>
+<td>15-28s</td>
+<td>[总结]</td>
+<td>[CTA]</td>
+<td>[淡出]</td>
+</tr>
+</tbody></table>
+<h3 id="模板3：质量检查清单"><a href="#模板3：质量检查清单" class="headerlink" title="模板3：质量检查清单"></a>模板3：质量检查清单</h3><ul>
+<li><input disabled="" type="checkbox"> 画质 ≥ 1080p</li>
+<li><input disabled="" type="checkbox"> 声音清晰无杂音</li>
+<li><input disabled="" type="checkbox"> 前3秒有钩子</li>
+<li><input disabled="" type="checkbox"> 字幕准确（AI生成需人工校对）</li>
+<li><input disabled="" type="checkbox"> 符合平台时长限制</li>
+<li><input disabled="" type="checkbox"> 标签覆盖核心关键词</li>
+</ul>
+<hr>
+<h2 id="三、个人使用技巧与建议"><a href="#三、个人使用技巧与建议" class="headerlink" title="三、个人使用技巧与建议"></a>三、个人使用技巧与建议</h2><h3 id="3-1-效率提升技巧"><a href="#3-1-效率提升技巧" class="headerlink" title="3.1 效率提升技巧"></a>3.1 效率提升技巧</h3><ol>
+<li><strong>批量生成</strong>：使用即梦的批量脚本功能，一次生成5个备选方案</li>
+<li><strong>模板复用</strong>：建立个人模板库（片头&#x2F;片尾&#x2F;转场），减少重复设计</li>
+<li><strong>快捷键</strong>：掌握即梦的快捷键（如Ctrl+Enter快速生成）</li>
+</ol>
+<h3 id="3-2-模型选择建议"><a href="#3-2-模型选择建议" class="headerlink" title="3.2 模型选择建议"></a>3.2 模型选择建议</h3><ul>
+<li><strong>脚本生成</strong>：Llama 4 Maverick（多模态推理强）</li>
+<li><strong>画面生成</strong>：Claude Opus 4.6（细节控制好）</li>
+<li><strong>语音合成</strong>：选择支持情感调节的TTS模型</li>
+</ul>
+<h3 id="3-3-成本控制"><a href="#3-3-成本控制" class="headerlink" title="3.3 成本控制"></a>3.3 成本控制</h3><ul>
+<li><strong>免费额度</strong>：合理分配每日免费生成次数（优先用于关键镜头）</li>
+<li><strong>素材复用</strong>：建立个人素材库，减少重复生成</li>
+<li><strong>外包策略</strong>：复杂动画可考虑将文字描述外包给专业设计师</li>
+</ul>
+<hr>
+<h2 id="四、实战案例：30秒AI科普视频制作"><a href="#四、实战案例：30秒AI科普视频制作" class="headerlink" title="四、实战案例：30秒AI科普视频制作"></a>四、实战案例：30秒AI科普视频制作</h2><ol>
+<li><strong>创意简报</strong>：主题：AI多模态技术；受众：开发者；钩子：”AI现在能同时看懂图和文字！”</li>
+<li><strong>脚本生成</strong>：使用即梦脚本AI，输入关键词，生成3个版本，选择最优</li>
+<li><strong>内容生成</strong>：<ul>
+<li>画面：展示文字+图片同时处理的动态效果</li>
+<li>配音：科技感女声，语速稍快</li>
+<li>音乐：电子背景音</li>
+</ul>
+</li>
+<li><strong>编辑优化</strong>：加入数据可视化动画（如”处理速度提升300%”）</li>
+<li><strong>发布</strong>：导出9:16竖屏，添加标签#AI #多模态 #开发者</li>
+</ol>
+<p><strong>成果</strong>：从创意到发布仅用1.5小时，播放量5万+</p>
+<hr>
+<h2 id="五、总结与展望"><a href="#五、总结与展望" class="headerlink" title="五、总结与展望"></a>五、总结与展望</h2><p>即梦AI将短视频创作从“专业技能”转变为“创意表达”，大幅降低了创作门槛。未来，随着模型能力的提升（如100M Token上下文、实时协作），我们期待更智能的创作体验。</p>
+<blockquote>
+<p>我的观点：<strong>AI不是替代创作者，而是放大创意效率</strong>。掌握工具链 + 保持创意敏感度，才能在AI时代脱颖而出。</p>
+</blockquote>
+<hr>
+<p><em>本文基于即梦平台实际操作经验整理，转载请注明出处。</em></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E6%A1%86%E6%9E%B6%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%8F%91%E5%B8%83%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">一、核心框架：从零到发布的完整流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%88%9B%E6%84%8F%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%AE%E6%A0%87%E8%AE%BE%E5%AE%9A%EF%BC%8810%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 创意分析与目标设定（10分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%84%9A%E6%9C%AC%E7%94%9F%E6%88%90%EF%BC%8815%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 脚本生成（15分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%EF%BC%8830%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 内容生成（30分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%BC%96%E8%BE%91%E4%B8%8E%E4%BC%98%E5%8C%96%EF%BC%8820%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 编辑与优化（20分钟）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E6%A0%A1%E9%AA%8C%E4%B8%8E%E5%8F%91%E5%B8%83%EF%BC%885%E5%88%86%E9%92%9F%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 校验与发布（5分钟）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E6%88%98%E6%A8%A1%E6%9D%BF%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">二、实战模板库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF1%EF%BC%9A%E5%88%9B%E6%84%8F%E7%AE%80%E6%8A%A5%E6%A8%A1%E6%9D%BF%EF%BC%88Markdown%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">模板1：创意简报模板（Markdown）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF2%EF%BC%9A%E8%84%9A%E6%9C%AC%E6%97%B6%E9%97%B4%E8%BD%B4%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.2.</span> <span class="toc-text">模板2：脚本时间轴模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF3%EF%BC%9A%E8%B4%A8%E9%87%8F%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="toc-number">2.3.</span> <span class="toc-text">模板3：质量检查清单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.</span> <span class="toc-text">三、个人使用技巧与建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87%E6%8A%80%E5%B7%A7"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 效率提升技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 模型选择建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 成本控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%EF%BC%9A30%E7%A7%92AI%E7%A7%91%E6%99%AE%E8%A7%86%E9%A2%91%E5%88%B6%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">四、实战案例：30秒AI科普视频制作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-number">5.</span> <span class="toc-text">五、总结与展望</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&text=即梦AI短视频创作全流程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&is_video=false&description=即梦AI短视频创作全流程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=即梦AI短视频创作全流程&body=Check out this article: http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&title=即梦AI短视频创作全流程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&name=即梦AI短视频创作全流程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2026/04/07/2026-04-07-jimu-ai-vlog-workflow/&t=即梦AI短视频创作全流程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Fester Zheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/swyx-zq">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
